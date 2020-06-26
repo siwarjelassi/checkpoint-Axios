@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+import axios from 'axios'
+export default class App extends React.Component {
+  state={  weatherData:"",
+  id:"2172797"
+}
+ componentDidMount(){
+  axios
+  .get(`http://api.openweathermap.org/data/2.5/weather?id=${this.state.id}&appid=d649d89801c1f83780cf1761470c4121`)
+  .then(res=>this.setState({weatherData: res.data}) )
+ }
+  render(){
+    const {main } = this.state.weatherData
+    
+    console.log("our state is "+ {main})
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1> The city is : {this.state.weatherData.name}</h1>
+      <h2> Visibility :  {this.state.weatherData.visibility}</h2>
     </div>
-  );
-}
-
-export default App;
+  
+  )}}
